@@ -1,0 +1,45 @@
+//first solution
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[i]+nums[j]==target){
+                    return new int[]{i,j};
+                }
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}
+
+//second solution
+class Solution{
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);  //put函数会覆盖掉之前添加的key值相同的项，并返回被覆盖项的value值
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[] { i, map.get(complement) };
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}
+
+//third solution
+class Solution{
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { i, map.get(complement) };
+            }
+            map.put(nums[i], i); //将put函数放到if判断后面，避免了以前相同key值的项在判断之前被覆盖，同时也避免了使用同一个元素俩次
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}
