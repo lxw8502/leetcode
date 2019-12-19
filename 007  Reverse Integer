@@ -1,0 +1,31 @@
+//因为x自带正负号所以无需考虑正负数的影响
+
+//Math.abs(res) > Integer.MAX_VALUE / 10 ，这里要写大于号，不是大于等于。
+//为什么等于Integer.MAX_VALUE/10 （即214748364） 时不会引起溢出呢，因为输入的x也是一个整型数，所以x的范围也应该在 -2147483648～2147483647 之间，
+//那么x的第一位只能是1或者2，翻转之后 res 的最后一位只能是1或2，所以 res 只能是 2147483641 或 2147483642 都在 int 的范围内。
+//但是它们对应的x为 1463847412 和 2463847412，后者超出了数值范围。
+//所以当过程中 res 等于 214748364 时， 输入的x只能为 1463847412， 翻转后的结果为 2147483641，都在正确的范围内，所以不会引起溢出。
+class Solution {
+    public int reverse(int x) {
+        int res = 0;
+        while (x != 0) {
+            if (Math.abs(res) > Integer.MAX_VALUE / 10) return 0;
+            res = res * 10 + x % 10;
+            x /= 10;
+        }
+        return res;
+    }
+}
+
+//使用long来存储结果，避免了溢出，等到最后再做判断。
+class Solution {
+public:
+    int reverse(int x) {
+        long res = 0;
+        while (x != 0) {
+            res = 10 * res + x % 10;
+            x /= 10;
+        }
+        return (res > INT_MAX || res < INT_MIN) ? 0 : res;
+    }
+};
