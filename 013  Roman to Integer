@@ -1,0 +1,36 @@
+//和后面的一个字母作比较如果小于后一个字母就减去当前的字母，如果大于等于后面的字母就加上当前字母
+class Solution {
+    public int romanToInt(String s) {
+        HashMap<Character, Integer> maps = new HashMap<>();
+        maps.put('I', 1);
+        maps.put('V', 5);
+        maps.put('X', 10);
+        maps.put('L', 50);
+        maps.put('C', 100);
+        maps.put('D', 500);
+        maps.put('M', 1000);
+        int res = 0;
+        for(int i = 0; i<s.length(); i++){
+            if(i!=s.length()-1 && maps.get(s.charAt(i)) < maps.get(s.charAt(i+1))){
+                res-=maps.get(s.charAt(i));
+            }else{
+                res+=maps.get(s.charAt(i));
+            }
+        }
+        return res;
+    }
+}
+
+//和前面的一个字母作比较，如果小于等于前一个字母就加上当前字母表示的数字，如果大于前面的字母，就减去俩倍前面字母表示的数字再加上当前字母表示的数字
+class Solution {
+public:
+    int romanToInt(string s) {
+        int res = 0;
+        unordered_map<char, int> m{{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+        for (int i = 0; i < s.size(); ++i) {
+            if (i == 0 || m[s[i]] <= m[s[i - 1]]) res += m[s[i]];
+            else res += m[s[i]] - 2 * m[s[i - 1]];
+        }
+        return res;
+    }
+};
