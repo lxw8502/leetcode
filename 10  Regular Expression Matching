@@ -1,0 +1,41 @@
+class Solution {
+    public boolean isMatch(String s, String p) {
+        if (p.isEmpty()) return s.isEmpty();  //当p和s同时为空字符串时返回true；否则返回false
+        if (p.length() == 1) {
+            //当p和s的长度都为1时，如果s的第一个字母和p的第一个字母相同，或者p的第一个字母为'.'时返回true；否则返回false。
+            return (s.length() == 1 && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.'));  
+        }
+        //当p的长度大于等于2且第二个字母不为'*'时，
+        if (p.charAt(1) != '*') {
+            //如果此时s为空，则返回false，否则返回true。
+            if (s.isEmpty()) return false;
+            //p和s的首字母相同或p的首字母为'.'时，去掉s和p的首字母再递归调用isMatch函数
+            return (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.') && isMatch(s.substring(1), p.substring(1));
+        }
+        //当p的长度大于等于2且第二个字母为'*'时，如果s不为空且p和s的首字母相同或p的首字母为'.'时，继续这个循环
+        while (!s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')) {
+            //如果去掉p的前俩个字母，递归调用isMatch函数且返回true，则返回true；否则去掉s的第一个字母
+            //这里去掉p的前俩个字母，递归调用isMatch函数是为了匹配'*'匹配前面字母0次的情况；
+            //否则去掉s的第一个字母，而没有去掉p的前俩个字母是因为'*'可以匹配多次。
+            if (isMatch(s, p.substring(2))) return true;
+            s = s.substring(1);
+        }
+        //当p的长度大于等于2且第二个字母为'*'时，如果s为空或者p和s的首字母不相同时，去掉p的前俩个字母递归调用isMatch函数
+        return isMatch(s, p.substring(2));
+    }
+}
+
+//一种简单写法
+class Solution {
+    public boolean isMatch(String s, String p) {
+        //当p和s同时为空字符串时返回true；否则返回false  
+        if (p.isEmpty()) return s.isEmpty();
+        //当p的长度大于等于2且第二个字母为'*'时，
+        if (p.length() > 1 && p.charAt(1) == '*') {
+            return isMatch(s, p.substring(2)) || (!s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.') && isMatch(s.substring(1), p));
+        //其他情况，包括p和s的长度都为1；p的长度大于等于2且第二个字母不是'*'时，
+        } else {
+            return !s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.') && isMatch(s.substring(1), p.substring(1));
+        }
+    }
+};
