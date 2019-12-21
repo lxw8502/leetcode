@@ -1,0 +1,41 @@
+//迭代解法
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        String[] letters = new String[]{"", "","abc","def","ghi", "jkl","mno", "pqrs", "tuv", "wxyz"};
+        List<String> res = new ArrayList<>();
+        if(digits.equals("")){
+            return res;
+        }
+        res.add("");
+        for(int i = 0; i < digits.length(); i++){
+            String a = letters[digits.charAt(i) - '0'];
+            List<String> temp = new ArrayList<>();
+            for(int j = 0; j < a.length(); j++){
+                for(String s : res){
+                    temp.add(s+a.charAt(j));
+                }
+            }
+            res = temp;
+        }
+        return res;
+    }
+}
+
+//递归解法
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty()) return {};
+        vector<string> res;
+        vector<string> dict{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        letterCombinationsDFS(digits, dict, 0, "", res);
+        return res;
+    }
+    void letterCombinationsDFS(string& digits, vector<string>& dict, int level, string out, vector<string>& res) {
+        if (level == digits.size()) {res.push_back(out); return;}
+        string str = dict[digits[level] - '0'];
+        for (int i = 0; i < str.size(); ++i) {
+            letterCombinationsDFS(digits, dict, level + 1, out + str[i], res);
+        }
+    }
+}; 
