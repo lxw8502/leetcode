@@ -36,3 +36,32 @@ class Solution {
         return start.next;
     }
 }
+
+
+//优先级队列
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        Comparator<ListNode> comparator = new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode l1, ListNode l2) {
+                return (l1.val - l2.val);
+            }
+        };
+        Queue<ListNode> queue = new PriorityQueue<>(comparator);
+        for(int i = 0; i < lists.length; i++){
+            if(lists[i] instanceof ListNode){
+                queue.offer(lists[i]);
+            }
+        }
+        ListNode start = queue.poll();
+        ListNode cur = start;
+        while(queue.size() != 0 ){
+            if(cur.next != null){
+                queue.offer(cur.next);
+            }
+            cur.next = queue.poll();
+            cur = cur.next;
+        }
+        return start;
+    }
+}
