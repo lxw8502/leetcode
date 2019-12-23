@@ -1,0 +1,37 @@
+class Solution {
+    public int divide(int dividend, int divisor) {
+        //这里需要将dividend == MIN_VALUE且divisor == -1 这种情况单独讨论，因为他的结果超出了int的表数范围，所以只能返回MAX_VALUE
+        if(dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE;
+        if(divisor == 0) return Integer.MAX_VALUE;
+        int sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;
+        //应为当dividend == MIN_VALUE 去绝对值会超出整形的范围，所以需要在去绝对值之前要先将其强制转换为long类型。
+        long m = Math.abs((long) dividend), n = Math.abs((long) divisor), res = 0;
+        if (n == 1) return (int) (sign == 1 ? m : -m);
+        while (m >= n) {
+            long t = n, p = 1;
+            while (m >= (t << 1)) {
+                t <<= 1;
+                p <<= 1;
+            }
+            res += p;
+            m -= t;
+        }
+        return (int) (sign == 1 ? res : -res);
+    }
+}
+
+//递归写法
+class Solution {
+public int divide(int dividend, int divisor) {
+        long m = Math.abs((long)dividend), n = Math.abs((long)divisor), res = 0;
+        if (m < n) return 0;
+        long t = n, p = 1;
+        while (m > (t << 1)) {
+            t <<= 1;
+            p <<= 1;
+        }
+        res += p + divide((int)(m - t), (int)n);
+        if ((dividend < 0) ^ (divisor < 0)) res = -res;
+        return (int) (res > Integer.MAX_VALUE ? Integer.MAX_VALUE : res);
+    }
+};
