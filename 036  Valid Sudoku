@@ -1,0 +1,36 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        boolean[][] rowFlag = new boolean[9][9];
+        boolean[][] colFlag = new boolean[9][9];
+        boolean[][] cellFlag = new boolean[9][9];
+        for (int i = 0; i < 9; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                if (board[i][j] == '.') continue;
+                int c = board[i][j] - '1';
+                if (rowFlag[i][c] || colFlag[j][c] || cellFlag[3 * (i / 3) + j / 3][c]) return false;
+                rowFlag[i][c] = true;
+                colFlag[j][c] = true;
+                cellFlag[3 * (i / 3) + j / 3][c] = true;
+            }
+        }
+        return true;
+    }
+}
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<String> set = new HashSet<>();
+        for (int i = 0; i < 9; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                if (board[i][j] == '.') continue;
+                String t = "(" + Character.toString(board[i][j]) + ")";
+                String row = Integer.toString(i) + t, col = t + Integer.toString(j), cell = Integer.toString(i / 3) + t + Integer.toString(j / 3);
+                if (set.contains(row) || set.contains(col) || set.contains(cell)) return false;
+                set.add(row);
+                set.add(col);
+                set.add(cell);
+            }
+        }
+        return true;
+    }
+}
