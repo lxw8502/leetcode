@@ -1,0 +1,107 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        permuteSub(nums, list, nums.length, res);
+        return res;
+    }
+    private void swap(int[] nums, int m, int n){
+        int temp = nums[m];
+        nums[m] = nums[n];
+        nums[n] = temp;
+    }
+    private void permuteSub(int[] nums, List sublist, int n, List<List<Integer>> res){
+        if(n == 0){
+            res.add(sublist);
+            return;
+        }
+        for(int i = 0; i < n; i++){
+            List<Integer> list = new ArrayList<>();
+            list.addAll(sublist);
+            list.add(nums[i]);
+            int[] copyNums = Arrays.copyOf(nums, n);
+            swap(copyNums, i, n - 1);
+            permuteSub(copyNums, list, n - 1, res);
+            
+        }
+    }
+}
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> out = new ArrayList<>();
+        int[] visited = new int[nums.length];
+        permuteDFS(nums, 0, visited, out, res);
+        return res;
+    }
+    private void permuteDFS(int[] num, int level, int[] visited, List out, List<List<Integer>> res){
+        if (level == num.length) {
+            List<Integer> item = new ArrayList<>();
+            item.addAll(out);
+            res.add(item); 
+            return;
+        }
+        for (int i = 0; i < num.length; ++i) {
+            if (visited[i] == 1) continue;
+            visited[i] = 1;
+            out.add(num[i]);
+            permuteDFS(num, level + 1, visited, out, res);
+            out.remove(out.size()-1);
+            visited[i] = 0;
+        }
+    }
+}
+
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        permuteSub(nums, 0, res);
+        return res;
+    }
+    private void swap(int[] nums, int m, int n){
+        int temp = nums[m];
+        nums[m] = nums[n];
+        nums[n] = temp;
+    }
+    private void permuteSub(int[] nums, int n, List<List<Integer>> res){
+        if(n >= nums.length){
+            List temp = new ArrayList<>();
+            for(int i = 0; i < nums.length; i++){
+                temp.add(nums[i]);
+            }
+            res.add(temp);
+            return;
+        }
+        for(int i = n; i < nums.length; i++){
+            swap(nums, n, i);
+            permuteSub(nums, n + 1, res);
+            swap(nums, n, i);
+        }
+    }
+}
+
+
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        permuteSub(res, list, nums, 0);
+        return res;
+    }
+    private void permuteSub(List<List<Integer>> res, List<Integer> list, int[] nums, int start){
+        if(start >= nums.length){
+            res.add(list);
+            return;
+        }
+        for(int i = 0; i <= list.size(); i++){
+            List<Integer> temp = new ArrayList<>();
+            temp.addAll(list);
+            temp.add(i,nums[start]);
+            permuteSub(res, temp, nums, start+1);
+        }
+    }
+
+}
