@@ -27,6 +27,7 @@ class Solution {
     }
 }
 
+//带回溯
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -53,7 +54,7 @@ class Solution {
     }
 }
 
-
+//交换
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -83,7 +84,7 @@ class Solution {
 }
 
 
-
+//插入
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
