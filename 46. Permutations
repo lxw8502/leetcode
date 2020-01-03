@@ -18,8 +18,10 @@ class Solution {
         for(int i = 0; i < n; i++){
             List<Integer> list = new ArrayList<>();
             list.addAll(sublist);
+            //从nums中取一个数出来，将其添加到list中。
             list.add(nums[i]);
             int[] copyNums = Arrays.copyOf(nums, n);
+            //将这个取出的数移动到数组末尾，相当于将其移除。
             swap(copyNums, i, n - 1);
             permuteSub(copyNums, list, n - 1, res);
             
