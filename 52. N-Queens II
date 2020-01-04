@@ -48,6 +48,7 @@ class Solution {
             return res;
         }
         for(int m = 0; m < col.length; m++){
+            //相同主对角线上的元素其行数减去列数的值相同，应为这样有可能出现负数会出现数组下标越界的情况，所有需要加一个col.length
             if(col[m] || diag[m - n + col.length] || antidiag[m + n]){
                 continue;
             }
