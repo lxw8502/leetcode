@@ -1,0 +1,52 @@
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> res = new ArrayList<>();
+        if(intervals.length == 0){
+            res.add(newInterval);
+        }
+        int add = 0;
+        for(int i = 0; i < intervals.length; i++){
+            //如果第i项的第一项小于等于新插入项的第一项，则直接将其插入列表。
+            if(intervals[i][0] <= newInterval[0]){
+                res.add(new int[]{intervals[i][0],intervals[i][1]});
+            //新插入项的第一项小于第i项的第一项且新插入项没有被插入过
+            }else if(add == 0){
+                if(i == 0){
+                    res.add(new int[]{newInterval[0],newInterval[1]});
+                }else{
+                    int[] lastitem = res.get(res.size() - 1);
+                    if(lastitem[1] >= newInterval[0] && lastitem[1] < newInterval[1]){
+                        lastitem[1] = newInterval[1];
+                    }else if(lastitem[1] < newInterval[0]){
+                        res.add(new int[]{newInterval[0],newInterval[1]});
+                    }
+                }
+
+                int[] lastitem = res.get(res.size() - 1);
+                if(intervals[i][0] <= lastitem[1] && intervals[i][1] > newInterval[1]){
+                    lastitem[1] = intervals[i][1];
+                }else if(intervals[i][0] > lastitem[1]){
+                    res.add(new int[]{intervals[i][0],intervals[i][1]});
+                }
+                add++;
+            //如果新插入项已经插入过
+            }else{
+                int[] lastitem = res.get(res.size() -1);
+                if(intervals[i][0] <= lastitem[1] && intervals[i][1] > newInterval[1]){
+                    lastitem[1] = intervals[i][1];
+                }else if(intervals[i][0] > lastitem[1]){
+                    res.add(new int[]{intervals[i][0],intervals[i][1]});
+                }
+            }
+        }
+        if(add == 0){
+            int[] lastitem = res.get(res.size() - 1);
+            if(lastitem[1] >= newInterval[0] && lastitem[1] < newInterval[1]){
+                lastitem[1] = newInterval[1];
+            }else if(lastitem[1] < newInterval[0]){
+                res.add(new int[]{newInterval[0],newInterval[1]});
+            }
+        }
+        return res.toArray(new int[res.size()][2]);
+    }
+}
