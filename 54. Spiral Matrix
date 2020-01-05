@@ -1,0 +1,28 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if(matrix.length == 0 || matrix[0].length == 0) return res;
+        int n = matrix.length-1;
+        int m = matrix[0].length-1;
+        
+        spiralOrderSub(res, matrix, 0, 0, m, n);
+        return res;
+    }
+    private void spiralOrderSub(List<Integer> res, int[][] matrix,int colStart, int rowStart, int colEnd, int rowEnd){
+        if(colStart > colEnd || rowStart > rowEnd) return;
+        for(int i = colStart; i <= colEnd; i++){
+            res.add(matrix[rowStart][i]);
+        }
+        for(int i = rowStart+1; i <= rowEnd; i++){
+            res.add(matrix[i][colEnd]);
+        }
+        for(int i = colEnd-1; i >= colStart && rowStart < rowEnd; i--){
+            res.add(matrix[rowEnd][i]);
+        }
+        for(int i = rowEnd-1; i >= rowStart+1 && colStart < colEnd; i--){
+            res.add(matrix[i][colStart]);
+        }
+        spiralOrderSub(res, matrix, colStart+1, rowStart+1, colEnd-1, rowEnd-1);
+    }
+}
+
