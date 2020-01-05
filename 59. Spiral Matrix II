@@ -1,0 +1,27 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        generateMatrixSub(res, 0, n-1, 1);
+        return res;
+    }
+    private void generateMatrixSub(int[][] res, int start, int end, int num){
+        if(start > end) return;
+        for(int i = start; i <= end; i++){
+            res[start][i] = num;
+            num++;
+        }
+        for(int i = start+1; i <= end; i++){
+            res[i][end] = num;
+            num++;
+        }
+        for(int i = end-1; i >= start; i--){
+            res[end][i] = num;
+            num++;
+        }
+        for(int i = end-1; i >= start+1; i--){
+            res[i][start] = num;
+            num++;
+        }
+        generateMatrixSub(res, start+1, end-1, num);
+    }
+}
