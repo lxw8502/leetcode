@@ -52,3 +52,20 @@ class Solution {
 }
 
 
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> list = new ArrayList<>();
+        for (int[] next: intervals) {
+            if (next[1]<newInterval[0]) list.add(next);
+            else if (newInterval[1]<next[0]) {
+                list.add(newInterval);
+                newInterval = next;
+            }
+            else newInterval = new int[]{Math.min(newInterval[0], next[0]), Math.max(newInterval[1], next[1])};
+        }
+        list.add(newInterval);
+        return list.toArray(new int[list.size()][2]);
+    }
+}
+
+
