@@ -1,0 +1,20 @@
+class Solution {
+    private static final int[] factorials = new int[] {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880};
+    public String getPermutation(int n, int k) {
+        List<String> str = new ArrayList<>();
+        for(int i = 1; i <= n; i++){
+            str.add(""+i);
+        }
+        String res = "";
+        k--;
+        for(int i = n - 1; i >= 1; i--){
+            int num = k / factorials[i];
+            k -= (num * factorials[i]);
+            res += str.get(num);
+            str.remove(num);
+        }
+        res += str.get(0);
+        return res;
+            
+    }
+}
