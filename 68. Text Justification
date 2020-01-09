@@ -1,0 +1,65 @@
+class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res = new ArrayList<>();
+        //i 是遍历到的word的下标，j为除去多余空格的当前行的长度，lineWordNum 为当前行有多少个word，
+        //startWordNum 为当前行开始word的下标，charNum是除去空格之后当前行所有word的字母数量之和
+        int i = 0, j = 0, lineWordNum = 0, startWordNum = 0, charNum = 0;
+        String temp = "";
+        while(i < words.length){
+            //确定有哪些word可以加进当前行
+            while(i < words.length && j + words[i].length() <= maxWidth){
+                    j += words[i].length();
+                    if(j < maxWidth){
+                      j++;
+                    }
+                    charNum += words[i].length();
+                    lineWordNum++;
+                    i++;
+            }
+            int space = lineWordNum - 1 == 0 ? 1 : lineWordNum - 1;
+            //如果当前行是最后一行
+            if(i == words.length){
+                for(int m = startWordNum; m < i; m++){
+                    temp += words[m];
+                    if(space > 0 && words[m].length() < maxWidth){
+                        temp += " ";
+                        space--;
+                    }
+                }
+                if(maxWidth - temp.length() > 0){
+                    temp += addSpace(maxWidth - temp.length());
+                }
+            //当前行不是最后一行
+            }else{
+                int spaceNum = (maxWidth - charNum)/space;
+                int yu = lineWordNum - 1 == 0 ? 0 : (maxWidth - charNum)%(lineWordNum - 1);
+                for(int m = startWordNum; m < i; m++){
+                    temp += words[m];
+                    if(space > 0 && yu > 0 && words[m].length() < maxWidth){
+                        temp += addSpace(spaceNum + 1);
+                        yu--;
+                        space--;
+                    }else if(space > 0 && words[m].length() < maxWidth){
+                        temp += addSpace(spaceNum);
+                        space--;
+                    } 
+                }
+            }
+            res.add(new String(temp));
+            //更新参数
+            temp = "";
+            startWordNum = i;
+            j = 0;
+            lineWordNum = 0;
+            charNum = 0;
+        }
+        return res;
+    }
+    private String addSpace(int n){
+        String res = "";
+        for(;n > 0; n--){
+            res += " ";
+        }
+        return res;
+    }
+}
