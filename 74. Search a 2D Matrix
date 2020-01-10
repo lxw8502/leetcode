@@ -1,0 +1,64 @@
+//俩次二分搜索
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0) return false;
+        int left = 0, right = matrix.length;
+        while(left < right){
+            int mid = (left + right) / 2;
+            if(matrix[mid][0] == target) return true;
+            if(matrix[mid][0] < target){
+                left = mid + 1;
+            }else{
+                right = mid;
+            }
+        }
+        int temp = right > 0 ? right - 1 : right;
+        left = 0;
+        right = matrix[0].length;   
+        while(left < right){
+            int mid = (left + right) / 2;
+            if(matrix[temp][mid] == target){
+                return true;
+            }else if(matrix[temp][mid] < target){
+                left = mid + 1;
+            }else{
+                right = mid;
+            }
+        }
+        return false;  
+    }
+}
+
+//一次二分查找
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0) return false;
+        int m = matrix.length, n = matrix[0].length;
+        int left = 0, right = m * n;
+        while(left < right){
+            int mid = (left + right) / 2;
+            if(matrix[mid / n][mid % n] == target) return true;
+            if(matrix[mid / n][mid % n] < target){
+                left = mid + 1;
+            }else{
+                right = mid;
+            }
+        }
+        return false;
+    }
+}
+
+//双指针
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.empty() || matrix[0].empty()) return false;
+        int i = 0, j = (int)matrix[0].size() - 1;
+        while (i < matrix.size() && j >= 0) {
+            if (matrix[i][j] == target) return true;
+            else if (matrix[i][j] > target) --j;
+            else ++i;
+        }   
+        return false;
+    }
+};
