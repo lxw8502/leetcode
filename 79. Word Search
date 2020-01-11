@@ -1,0 +1,25 @@
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int m = board.length, n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(search(board, i, j, 0, visited, word)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean search(char[][] board, int row, int col, int level, boolean[][] visited, String word){
+        int m = board.length, n = board[0].length;
+        if(level >= word.length()) return true;
+        if(row >= m || row < 0 || col >= n || col < 0) return false;
+        if(visited[row][col]) return false;
+        if(board[row][col] != word.charAt(level)) return false;
+        visited[row][col] = true;
+        boolean res = search(board, row + 1, col, level + 1, visited, word) || search(board, row, col + 1, level + 1, visited, word) || search(board, row - 1, col, level + 1, visited, word) ||search(board, row, col - 1, level + 1, visited, word);
+        visited[row][col] = false;
+        return res;
+    }
+}
