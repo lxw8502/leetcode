@@ -1,0 +1,49 @@
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode start = new ListNode(0);
+        start.next = head;
+        if(head == null || head.next == null) return head;
+        ListNode first = start, second = head, third = head.next;
+        while(third != null){
+            while(second.val == third.val){
+                third = third.next;
+                if(third == null) break;
+            }
+            if(second.next != third){
+                first.next = third;
+                second = third;
+                third = third == null ? null : third.next;
+            }else{
+                first = first.next;
+                second = second.next;
+                third = third.next;
+            }
+        }
+        start = start.next;
+        return start;
+    }
+}
+
+//精简了一个指针
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode start = new ListNode(0);
+        start.next = head;
+        ListNode first = start, second = head;
+        while(second != null){
+            while(second.next != null && second.val == second.next.val){
+                second = second.next;
+            }
+            if(first.next != second){
+                second = second.next == null ? null : second.next;
+                first.next = second;
+            }else{
+                first = first.next;
+                second = second.next;
+            }
+        }
+        return start.next;
+
+    }
+}
