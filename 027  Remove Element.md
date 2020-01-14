@@ -25,13 +25,13 @@ Note that the order of those five elements can be arbitrary.
 It doesn't matter what values are set beyond the returned length.
 
 ### 解法1：
+```java
 //我最初的想法，用俩个指针，m指在数组开头，n指在数组结尾，然后将nums[m]的值和val进行比较。
 //如果等于val的话就将nums[n]的值赋值给nums[m]，并将n--。注意这里并不能给m++，因为新赋值给nums[m]的值仍然有可能等于val。
 //如果不等于val的话，则将m++。现在，m指针之前的值就都不等于val了。
 //这样一直循环下去直到m > n,停止循环。
 //那么最后应该返回哪个值呢，因为现在m指针之前的所有值组成的新数组就是需要求得的新数组，所以m就是新数组的长度，直接返回m即可。
 //最后需要考虑一下当nums为空数组时的情况，发现不用特殊考虑，所以完成！
-```java
 class Solution {
     public int removeElement(int[] nums, int val) {
         int m = 0, n = nums.length - 1;
