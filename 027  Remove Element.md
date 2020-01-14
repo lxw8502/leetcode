@@ -24,7 +24,7 @@ Note that the order of those five elements can be arbitrary.
 
 It doesn't matter what values are set beyond the returned length.
 
-### 解法1：
+### Solution 1：
 ```java
 //我最初的想法，用俩个指针，m指在数组开头，n指在数组结尾，然后将nums[m]的值和val进行比较。
 //如果等于val的话就将nums[n]的值赋值给nums[m]，并将n--。注意这里并不能给m++，因为新赋值给nums[m]的值仍然有可能等于val。
@@ -47,7 +47,7 @@ class Solution {
     }
 }
 ```
-### 解法2：
+### Solution 2：
 ```java
 //另外一种解法，这种解法也用到了俩个变量m和i。
 //m和上一种解法中的m作用一样，记录新数组的长度，i用来遍历数组nums。
