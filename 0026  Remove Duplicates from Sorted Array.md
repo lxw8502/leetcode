@@ -58,6 +58,32 @@ class Solution {
     }
 }
 
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int pre = 0, cur = 1, n = nums.length;
+        while(cur < n){
+            if(nums[cur] == nums[pre]) cur++;
+            else nums[++pre] = nums[cur++];
+        }
+        return  nums.length == 0 ? 0 : pre + 1;
+    }
+}
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        //1
+        int pre = 1, cur = 1, n = nums.length;
+        while(cur < n){
+            //2
+            if(nums[cur] == nums[pre - 1]) cur++;
+            //3
+            else nums[pre++] = nums[cur++];
+        }
+        //4
+        return  nums.length == 0 ? 0 : pre;
+    }
+}
+
 //for循环写法
 //注意这里是将num和nums[i - 1]进行比较
 class Solution {
