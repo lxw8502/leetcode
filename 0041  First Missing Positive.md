@@ -71,7 +71,10 @@ class Solution {
 ### Solution 2
 ```java
 //0ms  constant space
-//
+//因为限制了空间复杂度为常数个额外空间，所以只能覆盖原有数组，思路是把 nums[i] 放在 nums[nums[i] - 1]上，
+//遍历整个数组，如果 nums[i] != i + 1, 而 nums[i] 为正整数且不大于n，另外 nums[i] 不等于 nums[nums[i] - 1] 的话，将两者位置调换，
+//如果不满足上述条件直接跳过，最后再遍历一遍数组，如果对应位置上的数不正确则返回正确的数
+//需要注意的点：1. nums[i] > 0 && nums[i] <= n  是小于等于n   2.第一个for循环内的是一个while循环而不是if
 class Solution {
     public int firstMissingPositive(int[] nums) {
         int n = nums.length;
