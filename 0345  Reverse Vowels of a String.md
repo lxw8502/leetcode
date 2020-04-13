@@ -41,6 +41,7 @@ class Solution {
 ### Solution 2
 ```java
 //新建一个和字符串s一样长的字符数组，然后进行填充
+//这种方法的while循环判断条件必须是i<=j, 因为有最后一个字符需要填充。
 class Solution {
     private final static HashSet<Character> vowels = new HashSet<>(
             Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
