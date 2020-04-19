@@ -16,7 +16,7 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 ### solution 1
 ```java
-#usr the quick sort mind, partition function.
+// usr the quicksort mind, partition function.
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         int left = 0, right = nums.length - 1;
@@ -30,9 +30,8 @@ class Solution {
     public int partition(int[] nums, int left, int right){
         int pivot = left, l = left + 1, r = right;
         while(l <= r){
-            if(nums[l] < nums[left] && nums[r] > nums[left]){
-                swap(nums, l++, r--);
-            }else if(nums[l] >= nums[left]) l++;
+            if(nums[l] < nums[left] && nums[r] > nums[left]) swap(nums, l++, r--);
+            else if(nums[l] >= nums[left]) l++;
             else r--;
         }
         swap(nums, left, r);
@@ -45,3 +44,29 @@ class Solution {
     }
 }
 ```
+
+### solution 2
+``` java
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int val : nums) {
+            pq.add(val);
+            if (pq.size() > k)
+                pq.poll();
+        }
+        return pq.peek();
+    }
+    
+}
+```
+
+### solution 3
+```java
+class Solution{
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
+    }
+}
+
