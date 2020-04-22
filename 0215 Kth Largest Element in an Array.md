@@ -47,6 +47,7 @@ class Solution {
 
 ### solution 2
 ``` java
+//java中默认实现的是小根堆
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
